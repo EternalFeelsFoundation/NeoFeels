@@ -1,0 +1,203 @@
+html {
+  background: url('thatfeelbro.png') no-repeat right bottom fixed;
+}
+body {
+	background: none;
+}
+.header {
+    border-bottom: 1px solid #E5E5E5;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+}
+.feel-prefix {
+    font-size: 18px;
+    font-weight: 300;
+}
+.img-circle {
+    height: 60px;
+    padding: 0;
+}
+.container {
+    max-width: 700px;
+}
+.green-text {
+    color: green;
+}
+.feel-block {
+    margin-bottom: 30px;
+    padding: 10px 0 0 0;
+    box-shadow: 0 1px 1px 1px #E5E5E5;
+}
+.feel-block > .col-md-2 > a {
+    padding: 3px 5px;
+    margin-right: 40px;
+    font-size: 11px;
+    margin-bottom: 3px;
+    display: block;
+}
+.feel-block > .col-md-2 {
+    padding: 10px 0 0 0;
+}
+
+.menu {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.post-form {
+    width: 400px;
+    margin: 0px auto;
+}
+
+.replies {
+    margin-left: 50px;
+}
+
+.iktf {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    padding: 3px;
+}
+
+.post .panel-heading {
+    padding: 1px 10px;
+}
+
+/***************** *******************/
+.bold {
+    font-weight: bold;
+}
+.hide {
+    display: none;
+}
+.post-wrapper {
+    margin-bottom: 25px;
+}
+.post .panel-body {
+    font-size: 15px;
+}
+.post .panel-heading {
+    margin: 1px;
+    margin-bottom: 5px;
+}
+.post .name {
+    font-size: 14px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: -2px;
+}
+.post .date {
+    float: right;
+}
+.post .header-right {
+    float: right;
+    margin-top: -15px;
+}
+.post ul.footer-nav {
+    padding: 0;
+    margin: 0;
+    float: right;
+    margin-top: -15px;
+}
+.post ul.footer-nav li {
+    display: inline;
+}
+.post hr {
+    border: 0;
+}
+.post .panel-body {
+    padding: 10px 25px;
+}
+.post .footnote {
+    font-size: 12px;
+    margin: 5px 0px 7px 0px;
+    padding-left: 10px;
+}
+.op {
+    margin-top: 50px;
+}
+.intro {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    display: block;
+}
+.post-menu {
+    text-align: right;
+}
+.post-menu li {
+    display: inline;
+    padding-right: 5px;
+}
+.post-menu li span {
+    font-size: 14px;
+    border-radius: 0 !important;
+    padding: 3px 8px;
+}
+.quick-reply textarea {
+    height: 35px;
+    margin-bottom: 5px;
+    display: inline;
+    width: 85%;
+    overflow: hidden;
+}
+.quick-reply button {
+    display: inline;
+    font-weight: bold;
+    margin-top: -40px;
+}
+label {
+    display: inline-block;
+    width:100px;
+    text-align: left;
+}
+
+.spoiler {
+    color: #262626;
+    background-color: #262626;
+}
+
+.spoiler:hover {
+    color: white;
+}
+
+#player {
+  visibility: hidden;
+  position: fixed;
+  width: 0;
+  height: 0;
+  left: 0;
+}
+
+.blink_text {
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-name: blinker;
+    -moz-animation-duration: 2s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+    animation-name: blinker;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite; color: black;
+}
+
+@-moz-keyframes blinker {
+    0% { opacity: 1.0; }
+    50% { opacity: 0; }
+    100% { opacity: 1.0; }
+}
+
+@-webkit-keyframes blinker {
+    0% { opacity: 1.0; }
+    50% { opacity: 0; }
+    100% { opacity: 1.0; }
+}
+
+@keyframes blinker {
+    0% { opacity: 1.0; }
+    50% { opacity: 0; }
+    100% { opacity: 1.0; }
+}

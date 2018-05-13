@@ -1,0 +1,50 @@
+.header {
+    border-bottom: 1px solid #E5E5E5;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+}
+.feel-prefix {
+    font-size: 18px;
+    font-weight: 300;
+}
+.img-circle {
+    height: 60px;
+    padding: 0;
+}
+.container {
+    max-width: 700px;
+}
+.intro {
+    margin-bottom: 50px;
+}
+.green-text {
+    color: green;
+}
+.feel-block {
+    margin-bottom: 30px;
+    padding: 10px 0 0 0;
+}
+.feel-block > .col-md-2 > button {
+    padding: 3px 5px;
+    margin-left: 40px;
+    font-size: 11px;
+    margin-bottom: 3px;
+    display: block;
+}
+.feel-block > .col-md-2 {
+    padding: 10px 0 0 0;
+}
+
+.menu {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.promoted {
+    box-shadow: 3px 1px 1px green;
+}
+
+#spoiler {
+    color: #262626;
+    background-color: #262626;
+}

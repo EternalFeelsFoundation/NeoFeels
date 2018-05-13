@@ -1,0 +1,36 @@
+<div class="row post-wrapper">
+    <div class="panel post">
+        <div class="panel-heading">
+            <span class="name">{% if post.youtube %}<i class="fa fa-headphones"></i>{% endif %}Anonymous {% if posthash %}{% if post.hash %}##<span style="color: #{{ post.hash|slice:"3" }};">{{ post.hash }}</span>{% endif %}{% endif %} {% if post.capcode %}<span style="color: red;">##Admin</span>{% endif %} </span>
+            <span class="small text-muted">{{ post.time|timesince }} ago</span>
+            <span class="header-right">
+                <a href="/replies/{{ post.thread.id }}/" class="btn btn-warning btn-xs bold">
+                    <i class="fa fa-comments-o"></i> Original Feel
+                </a>
+            </span>
+
+        </div>
+        <div class="panel-body">
+            {% load bbcode_tags %}
+            {% bbcode entry.bbcode_content %}
+            {{ post.body|bbcode|safe }}
+			{{ tag.name|safe }}
+        </div>
+
+        <hr />
+
+        {% if post.is_thread and quick_reply %}
+        <div class="footnote hide">
+            <form method="post" action="{% url 'posts.views.quick_reply' %}">
+                {% csrf_token %}
+                <div class="form-group quick-reply">
+                    <textarea name="{{ quick_reply.body.html_name }}" class="form-control" placeholder="Comment..."></textarea>
+                    <input type="hidden" name="{{ quick_reply.thread.html_name }}" value="{{ post.id }}" />
+                    <button type="submit" class="btn btn-danger btn-sm">Reply</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</div>
+

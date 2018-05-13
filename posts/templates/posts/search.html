@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Search Threads</h2>
+    <h5>You can search for feels containing certain phrases using these forms.</h5>
+    <br><br>
+    <form action="/" method="get">
+        <input type="text" name="search"/>
+        <input type="submit" class="btn btn-info" value="Search Threads"/>
+    </form>
+    <br>
+    <form action="/comments/" method="get">
+        <input type="text" name="search"/>
+        <input type="submit" class="btn btn-info" value="Search Replies"/>
+    </form>
+    <br>
+{% endblock %}

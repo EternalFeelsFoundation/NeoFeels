@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block page_title %}Posts{% endblock %}
+{% block content %}
+    {% if posts.paginator.num_pages > 1 %}
+    <div style="margin-top: 100px;">
+        <ul class="pagination">
+            {% if posts.has_previous %}
+                <li><a href="?page={{ posts.previous_page_number }}">&laquo;</a></li>
+            {% endif %}
+            {% for page in posts.paginator.page_range %}
+                {% if page != False %}
+                {% if page == posts.number %}
+                    <li class="active"><a>{{ posts.number }}</a></li>
+                {% else %}
+                    {% if search %}
+                        {% if sort %}
+                        <li><a href="/?page={{ page }}&sort={{ sort }}&search={{ search }}">{{ page }}</a></li>
+                        {% else %}
+                            <li><a href="/?page={{ page }}&search={{ search }}">{{ page }}</a></li>
+                        {% endif %}
+                    {% else %}
+                        {% if sort %}
+                        <li><a href="/?page={{ page }}&sort={{ sort }}">{{ page }}</a></li>
+                        {% else %}
+                            <li><a href="/?page={{ page }}">{{ page }}</a></li>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                {% endif %}
+            {% endfor %}
+            {% if posts.has_next %}
+                <li><a href="/?page={{ posts.next_page_number }}">&raquo;</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    {% endif %}
+{% endblock %}

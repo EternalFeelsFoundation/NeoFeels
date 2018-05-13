@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block page_title %}Posts{% endblock %}
+{% block content %}
+    <center><div id="graphdiv" style="width:500px; height:300px;"></div></center>
+
+
+
+        <script type="text/javascript">
+            g2 = new Dygraph(
+            document.getElementById("graphdiv"),
+            "/static/wow.csv", // path to CSV file
+            {
+              legend: 'always',
+              title: 'Feels Per Day',
+              ylabel: 'Feels Felt',
+              xlabel: 'Date (Highlight portion to zoom in, double click to zoom out)',
+              labelsDivStyles: {
+                'text-align': 'right',
+                'background': 'none'
+              },}          // options
+            );
+        </script>
+{% endblock %}

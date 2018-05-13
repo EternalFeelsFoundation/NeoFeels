@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+<table class="table table">
+<thead>
+<tr>
+    <th>
+        #
+    </th>
+    <th>
+        Potential Meme
+    </th>
+    <th>
+        IP
+    </th>
+    <th>
+        Approve
+    </th>
+    <th>
+        Dismiss
+    </th>
+    <th>
+        Dismiss by IP
+    </th>
+</tr>
+</thead>
+<tbody>
+{% for meme in pmemes %}
+<tr>
+<td>
+    {{ forloop.counter }}
+</td>
+<td>
+    {{ meme.meme }}
+</td>
+<td>
+    {{ meme.ipaddr }}
+</td>
+<td>
+    <form action="/memes_mod" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="pmeme" value="{{ meme.id }}">
+        <input type="hidden" name="action" value="approve">
+        <button class="btn btn-success btn-sm" type="submit">Approve</button>
+    </form>
+</td>
+<td>
+    <form action="/memes_mod" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="pmeme" value="{{ meme.id }}">
+        <input type="hidden" name="action" value="dismiss">
+        <button class="btn btn-warning btn-sm" type="submit">Dismiss</button>
+    </form>
+</td>
+<td>
+    <form action="/memes_mod" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="pmeme" value="{{ meme.id }}">
+        <input type="hidden" name="action" value="dismiss_by_ip">
+        <button class="btn btn-danger btn-sm" type="submit">Dismiss+</button>
+    </form>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

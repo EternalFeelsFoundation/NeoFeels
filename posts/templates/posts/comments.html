@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block page_title %}Posts{% endblock %}
+{% block content %}
+<div class="col-md-12">
+    <div class="intro">
+		{% if user.is_authenticated %}
+			{% if banned %}
+			<div class="alert alert-danger bold alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			&#x2717; User is already banned
+			</div>
+			{% else %}
+			{% if ban %}
+			<div class="alert alert-success bold alert-dismissible" role="alert">
+			 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			&#10003; User successfully banned
+			</div>
+			{% endif %}
+			{% endif %}
+		{% endif %}
+        <ul class="post-menu">
+            <li><span class="btn btn-default" id="post-btn"><i class="fa fa-plus"></i> Post a Feel</span></li>
+            <li><span class="btn btn-default" id="darktheme-toggle"><i class="fa fa-bookmark-o"></i> Dark Theme</span></li>
+            <li><span class="btn btn-default" id="danktheme-toggle" style="display:none"><i class="fa fa-leaf"></i> Dank Theme</span></li>
+			{% if user.is_authenticated %}
+			<li><a href="moderation"><span class="btn btn-default" id="post-btn"><i class="fa fa-wrench"></i> Moderation</span></a></li>
+			{% endif %}
+        </ul>
+
+    </div>
+
+    {% for post in posts %}
+        {% include 'posts/comment.html' %}
+    {% endfor %}
+
+    {# Display page numbers only if there is more than one page #}
+    {% if posts.paginator.num_pages > 1 %}
+    <div style="margin-top: 100px;">
+        <ul class="pagination">
+            {% if posts.has_previous %}
+                <li><a href="?page={{ posts.previous_page_number }}">&laquo;</a></li>
+            {% endif %}
+            {% for page in posts.page_range %}
+                {% if page != False %}
+                {% if page == posts.number %}
+                    <li class="active"><a>{{ posts.number }}</a></li>
+                {% else %}
+                    {% if search %}
+                        {% if sort %}
+                        <li><a href="?page={{ page }}&sort={{ sort }}&search={{ search }}">{{ page }}</a></li>
+                        {% else %}
+                            <li><a href="?page={{ page }}&search={{ search }}">{{ page }}</a></li>
+                        {% endif %}
+                    {% else %}
+                        {% if sort %}
+                        <li><a href="?page={{ page }}&sort={{ sort }}">{{ page }}</a></li>
+                        {% else %}
+                            <li><a href="?page={{ page }}">{{ page }}</a></li>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                {% endif %}
+            {% endfor %}
+            {% if posts.has_next %}
+                <li><a href="?page={{ posts.next_page_number }}">&raquo;</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

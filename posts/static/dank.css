@@ -1,0 +1,24 @@
+html {
+    background: url("http://i.imgur.com/crKNh9c.jpg") fixed !important;
+}
+
+.container {
+      background-image: url("http://i.imgur.com/dmK9bxA.jpg") !important;
+}
+
+.text-primary {
+      color: red !important;
+      font-weight: bold !important;
+}
+#page_title {
+      background: white;
+      opacity: .7;
+      border-radius: 5%;
+      text-align: center;
+      border: 2px solid #8AC007;
+      vertical-align: middle;
+}
+#danktheme-toggle {
+    display:inline-block !important;
+}
+

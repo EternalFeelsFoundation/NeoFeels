@@ -1,0 +1,53 @@
+<html>
+{% load staticfiles %}
+<head>
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
+        <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}" />
+        <style>
+            .highlight {
+                font-family: Apple Chancery;
+            }
+        </style>
+</head>
+<body>
+{% load bbcode_tags %}
+{% bbcode entry.bbcode_content %}
+<center><h1 id="table">Table of Contents</h1></center>
+<h5><a href="#Preface">Preface</a></h5>
+<h5>Chapter 1: <a href="#December 2014">December 2014</a></h5>
+<h5>Chapter 2: <a href="#January 2015">January 2015</a></h5>
+<h5>Chapter 3: <a href="#February 2015">February 2015</a></h5>
+<h5>Chapter 4: <a href="#March 2015">March 2015</a></h5>
+<h5>Chapter 5: <a href="#April 2015">April 2015</a></h5>
+<h5>Chapter 6: <a href="#May 2015">May 2015</a></h5>
+<h5>Chapter 7: <a href="#June 2015">June 2015</a></h5>
+<h5>Chapter 8: <a href="#July 2015">July 2015</a></h5>
+<h5>Chapter 9: <a href="#August 2015">August 2015</a></h5>
+<h5>Chapter 10: <a href="#Spetember 2015">Spetember 2015</a></h5>
+<h5>Chapter 11: <a href="#October 2015">October 2015</a></h5>
+<h5>Chapter 12: <a href="#November 2015">November 2015</a></h5>
+<h5>Chapter 13: <a href="#December 2015">December 2015</a></h5>
+<h5>Chapter 14: <a href="#January 2016">January 2016</a></h5>
+<h5>Chapter 15: <a href="#February 2016">February 2016</a></h5>
+<h5>Chapter 16: <a href="#March 2016">March 2016</a></h5>
+<h5>Chapter 17: <a href="#April 2016">April 2016</a></h5>
+<h5>Chapter 18: <a href="#May 2016">May 2016</a></h5>
+
+
+{% for threads in all_objects %}
+    <center><a href="#table"><h1 id="{{ threads.0 }}">{{ threads.0 }}</h1></a></center>
+    {% for thread in threads.1 %}
+        <hr>
+        <h5 class="highlight"> On {{ thread.time }} Anonymous wrote:</h5>
+            <p>{{ thread.body|bbcode|safe }}</p>
+        {% if thread.sorted_post_set.count > 0 %}
+                <p class="highlight">To which others replied: </p>
+            {% for post in thread.sorted_post_set %}
+                <br>
+                <p>{{ post.body|bbcode|safe }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+</body>
+</html>

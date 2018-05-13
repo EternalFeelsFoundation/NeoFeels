@@ -1,0 +1,92 @@
+{# base.html is used for every page in the post app #}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+		<title>{% block page_title %}{% endblock %} - Feel </title>
+        {# Recall that the {% static %} tag requires a STATIC_URL to be defined in settings.py #}
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
+        <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.min.css' %}" />
+        <link rel="stylesheet" href="{% static 'custom.css' %}" />
+
+        <script src="{% static 'jquery-2.1.0.min.js' %}"></script>
+		<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/dygraph/1.1.1/dygraph-combined.js"></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-6 col-md-offset-8" id="navbar">
+                    <p><a href="/">[Home]</a> <a href="/stats">[Stats]</a> <a href="/rules">[Rules]</a> <a href="/pages">[Pages]</a> <a href="/top_meme">[Memes]</a></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8" id="page_title">
+                    <h3 class="text-muted">Feel Day~</h3>
+                    {% if fph %}
+                    <h5 class="text-success">>Feels/Hr: {{ fph }}</h5>
+                    {% endif %}
+                    <h5 class="text-success">>Uniques/Day: {{ cob.upd }}</h5>
+                </div>
+                <div class="col-md-4">
+                    <div class="menu">
+                        <ul class="nav nav-pills">
+                            <li class="active"><a href="{% url 'posts.views.index' %}">Home</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+                                <center><h2 class="text-primary">Today is feel day.</h2></center>
+            <div>
+                <div class="row">
+                    {% block content %}{% endblock %}
+                    <div class="footer">
+                        <div class="small text-muted text-center">Brought to you by a Nobleman</div>
+                    </div>
+                </div>
+            <div id="player"></div>
+            </div>
+        </div>
+
+        <script src="{% static 'konami.js' %}"></script>
+        <script src="{% static 'custom.js' %}"></script>
+        {% if youtube %}
+      <script>
+          var tag = document.createElement('script');
+          tag.src = "https://www.youtube.com/iframe_api";
+          var firstScriptTag = document.getElementsByTagName('script')[0];
+          firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+          var player;
+
+          function onYouTubeIframeAPIReady() {
+              player = new YT.Player('player', {
+                  height: '320',
+                  width: '195',
+                  videoId: '{{ youtube }}', /* for the audio */
+                  events: {
+                      'onReady': onPlayerReady,
+                  }
+              });
+          }
+
+          function onPlayerReady(event) {
+              //event.target.playVideo();
+
+          }
+
+          function toggleSound(img) {
+                  if (player.getPlayerState() == 1) {
+                      player.pauseVideo();
+                  } else {
+                      player.playVideo();
+                  }
+          }
+  </script>
+    {% endif %}
+
+    </body>
+</html>

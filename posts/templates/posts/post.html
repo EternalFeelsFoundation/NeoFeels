@@ -1,0 +1,124 @@
+<div class="row post-wrapper">
+    <div class="panel post">
+        <div class="panel-heading">
+            <span class="name">{% if post.youtube %}<i class="fa fa-headphones"></i>{% endif %}Anonymous {% if posthash %}{% if post.hash %}##<span style="color: #{{ post.hash|slice:"3" }};">{{ post.hash }}</span>{% endif %}{% endif %} {% if post.capcode %}<span style="color: red;">##Admin</span>{% endif %} </span>
+            <span class="small text-muted">{{ post.time|timesince }} ago</span>
+            {% if post.tag_set.count > 0 %}
+                {% for tag in post.tag_set.all %}
+                    <a href="/?sort={{ tag.name|urlencode }}" style="color: white"><span class="label label-danger">{{ tag.name }}</span></a>
+                {% endfor %}
+            {% endif %}
+            {% if post.is_thread %}
+            <span class="header-right">
+                {% if post.post_set.count == 0 %}
+                <a href="{% url 'posts.views.replies' post.id %}" class="btn btn-default btn-xs bold"><i class="fa fa-comments-o"></i> 0 Replies</a>
+                {% elif post.post_set.count == 1 %}
+                <a href="{% url 'posts.views.replies' post.id %}" class="btn btn-warning btn-xs bold"><i class="fa fa-comments-o"></i> 1 Reply</a>
+                {% else %}
+                <a href="{% url 'posts.views.replies' post.id %}" class="btn btn-warning btn-xs bold">
+                    <i class="fa fa-comments-o"></i> {{ post.post_set.count }} Replies
+                </a>
+                {% endif %}
+                {% if quick_reply %}
+                    <span class="reply-btn btn btn-primary btn-xs bold"><i class="fa fa-comment-o"></i> Quick Reply</span>
+                    <form method="post" style="display: inline" action="/mod">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{ post.id }}" />
+                        <input type="hidden" name="action" value="delete" />
+                        <button type="submit" class="btn btn-default btn-xs bold"><i class="fa fa-bullhorn"></i></button>
+                    </form>
+                {% endif %}
+            {% endif %}
+                {% if user.is_authenticated %}
+                    {% if not post.is_thread %}
+                        <span class="header-right">
+                    {% endif %}
+                    <span align="right">
+                        <form method="post" style="display: inline" action="/mod">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ post.id }}" />
+                            <input type="hidden" name="action" value="delete" />
+                            <button type="submit" class="btn btn-default btn-xs bold">x</button>
+                        </form>
+
+                       <form method="post" style="display: inline" action="/mod">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ post.id }}" />
+                            <input type="hidden" name="action" value="cap" />
+                            <button type="submit" class="btn btn-default btn-xs bold">c</button>
+                        </form>
+                        <button name="post_id" id="ban_button" value="{{ post.id }}" class="btn btn-danger btn-xs bold" data-toggle="modal" data-target="#ban-{{ post.id }}">Ban</button>
+                    </span>
+
+                    <div class="modal fade" id="ban-{{ post.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Ban User</h4>
+                                </div>
+
+                                <form action="/mod" id="ban_form" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="action" value="ban" />
+                                    <input type="hidden" name="post_id" value="{{ post.id }}" />
+
+                                    <div class="modal-body">
+                                    <div class="form-group">
+                                      <label for="ip">IP</label>
+                                      <input type="text" class="form-control" name="post_ip" value="{{ post.ipaddr }}" />
+                                    </div>
+
+                                    <div class="form-group">
+                                    <label for="duration">Duration</label>
+                                    <input class="form-control" type="text" name="duration" />
+                                    </div>
+
+                                    <div class="form-group">
+                                      <label for="reason">Reason</label>
+                                      <textarea class="form-control" name="reason" maxlength="150" rows="2" cols="60"></textarea>
+                                    </div>
+
+                                    <div class="checkbox">
+                                      <label>
+                                          <input type="checkbox" name="delete" value="true" checked> Delete
+                                      </label>
+                                    </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Ban</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </span>
+
+        </div>
+        <div class="panel-body">
+            {% load bbcode_tags %}
+            {% bbcode entry.bbcode_content %}
+            {{ post.body|bbcode|safe }}
+			{{ tag.name|safe }}
+        </div>
+
+        <hr />
+
+        {% if post.is_thread and quick_reply %}
+        <div class="footnote hide">
+            <form method="post" action="{% url 'posts.views.quick_reply' %}">
+                {% csrf_token %}
+                <div class="form-group quick-reply">
+                    <textarea name="{{ quick_reply.body.html_name }}" class="form-control" placeholder="Comment..."></textarea>
+                    <input type="hidden" name="{{ quick_reply.thread.html_name }}" value="{{ post.id }}" />
+                    <button type="submit" class="btn btn-danger btn-sm">Reply</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</div>
+

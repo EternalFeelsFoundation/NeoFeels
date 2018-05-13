@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="intro">
+        <ul class="post-menu">
+            {% if youtube %}
+        <li><span class="btn btn-default" onclick="toggleSound(this);">Play AudioFeel™</span></li>
+        {% endif %}
+            <li><span class="btn btn-default" id="post-btn"><i class="fa fa-plus"></i> Reply</span></li>
+        </ul>
+    </div>
+    <div class="post-form">
+        <form role="form" action="" method="post">
+            {% csrf_token %}
+            {{ post_form.non_field_errors }}
+            <div class="form-group">
+                <textarea class="form-control" name="{{ post_form.body.html_name }}">{% if post_form.body.value %}{{ post_form.body.value }}{% endif %}</textarea>
+            </div>
+            <input type="hidden" name="thread_id" value="{{ post.id }}" />
+            <button type="submit" class="btn btn-danger">Reply</button>
+        </form>
+    </div>
+
+    <div class="op">
+        {% include "posts/post.html" %}
+    </div>
+
+    <div class="replies">
+        {% for post in post.sorted_post_set %}
+            {% include "posts/post.html" %}
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if ban %}
+    <p>You have been banned from posting for the following reason:</p>
+	{% if ban.reason %}
+    <blockquote>{{ ban.reason }}</blockquote>
+	{% else %}
+	<blockquote>No reason given</blockquote>
+    {% endif %}
+    {% if ban.expiration %}
+    <p>Your ban will expire in {{ ban.expiration|timeuntil }}.</p>
+    {% else %}
+    <p>Your ban will not expire.</p>
+    {% endif %}
+{% else %}
+<p>You are not banned.</p>
+{% endif %}
+{% endblock %}

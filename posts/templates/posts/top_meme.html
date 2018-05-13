@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+    {% if valid == 'valid' %}
+        <center><p class="bg-success">sent ;)</p></center>
+    {% elif valid == 'too_fast' %}
+        <center><p class="bg-danger">You are memeing too fast :(</p></center>
+    {%  elif valid == 'invalid' %}
+        <center><p class="bg-danger">Invalid entry :(</p></center>
+    {% endif %}
+    <br>
+    <p>
+        Top memes are calculated based on how often they are used and how many people are using them. One person spamming something over and over
+        will probably not reach the top of the list.
+    </p>
+    <hr>
+    <center><h2>Top Memes (Past Week)</h2></center>
+    {% for topmeme in top_five %}
+    <h5>{{ forloop.counter }}. {{  topmeme.meme }}</h5>
+    {% endfor %}
+    <hr>
+    <center><h2>Top Memes 2015</h2></center>
+    <h5>1. Hapa</h5>
+    <h5>2. </h5>
+    <h5>3. </h5>
+    <h5>4. </h5>
+    <h5>5. </h5>
+    <hr>
+    <center><h3>All Memes</h3></center>
+    <p>
+    {% for meme in memes %}
+    {{ meme.meme }},
+    {% endfor %}
+    </p>
+    <hr>
+        <p>
+            You can submit a new meme using the form below. They must be manually approved before being added to the list.
+        </p>
+        <p>
+        Common words and non-memes will not be added.
+        </p>
+        <br>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <br><br>
+            <button type="submit" class="btn btn-primary">New Meme</button>
+        </form>
+        <br><br><br>
+
+{% endblock %}
